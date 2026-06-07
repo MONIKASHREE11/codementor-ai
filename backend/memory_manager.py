@@ -95,3 +95,19 @@ def save_code_submission(db: Session, student_id: int, code: str, language: str,
     db.commit()
     db.refresh(submission)
     return submission
+
+def get_student_context(db: Session, student_id: int):
+    profile = get_learner_profile(db, student_id)
+    if not profile:
+        return {"sessions_count": 0, "summary": "New student, no history yet."}
+    return {
+        "sessions_count": profile.sessions_count or 0,
+        "skill_level": profile.skill_level,
+        "weak_topics": profile.weak_topics,
+        "strong_topics": profile.strong_topics,
+        "misconceptions": profile.misconceptions,
+        "explanation_style": profile.explanation_style
+    }
+
+def update_student_profile(db: Session, student_id: int):
+    update_learner_profile(db, student_id, new_errors=[], topic="general")

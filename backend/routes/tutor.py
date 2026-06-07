@@ -4,8 +4,12 @@ from database import get_db
 from models import Student, LearnerProfile, CodeSubmission
 from memory_manager import get_student_context, update_student_profile
 from groq import Groq
-import os
+from dotenv import load_dotenv
+from pathlib import Path
 from pydantic import BaseModel
+import os
+
+load_dotenv(dotenv_path=Path(__file__).parent.parent.parent / ".env")
 
 router = APIRouter()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -35,7 +39,7 @@ Code:
 Analyze the code. Point out errors, explain concepts they may have misunderstood, and give an encouraging personalized explanation. End with one small challenge to improve their understanding."""
 
     message = client.chat.completions.create(
-        model="llama3-70b-8192",
+        model="llama-3.3-70b-versatile",
         max_tokens=1024,
         messages=[{"role": "user", "content": prompt}]
     )

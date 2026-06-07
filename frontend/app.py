@@ -12,7 +12,7 @@ with st.sidebar:
     name = st.text_input("Your Name")
     email = st.text_input("Your Email")
     if st.button("Register / Login"):
-        response = requests.post(f"{API_URL}/students/register", json={"name": name, "email": email})
+        response = requests.post(f"{API_URL}/student/students/register", json={"name": name, "email": email})
         if response.status_code == 200:
             data = response.json()
             st.session_state["student_id"] = data["student_id"]
@@ -36,7 +36,7 @@ else:
             st.warning("Please paste some code first.")
         else:
             with st.spinner("CodeMentor is analyzing your code..."):
-                response = requests.post(f"{API_URL}/tutor/analyze", json={
+                response = requests.post(f"{API_URL}/tutor/tutor/analyze", json={
                     "student_id": st.session_state["student_id"],
                     "code": code,
                     "language": language,
