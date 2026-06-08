@@ -32,10 +32,10 @@ Most AI tools give the same generic response to everyone. I wanted to build some
 | Language | Python 3.11 |
 | Version Control | Git + GitHub |
 
----
 
 ## 📁 Project Structure
 
+```
 codementor-ai/
 ├── backend/
 │   ├── routes/
@@ -49,8 +49,7 @@ codementor-ai/
 │   └── app.py               # Streamlit user interface
 ├── .gitignore
 └── README.md
-
----
+```
 
 ## ⚙️ Setup Instructions
 
