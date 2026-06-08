@@ -107,5 +107,4 @@ http://localhost:8501
 ## 👩‍💻 About
 
 Built by Monika Shree — MSc. Data Science Student at Christ University, Bangalore.
-Actively building projects to develop real-world AI and software engineering skills.
 
