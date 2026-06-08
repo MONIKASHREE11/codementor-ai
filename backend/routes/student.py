@@ -33,3 +33,10 @@ def get_student(student_id: int, db: Session = Depends(get_db)):
     if not student:
         raise HTTPException(status_code=404, detail="Student not found")
     return {"id": student.id, "name": student.name, "email": student.email}
+
+@router.get("/students/email/{email}")
+def get_student_by_email(email: str, db: Session = Depends(get_db)):
+    student = db.query(Student).filter(Student.email == email).first()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+    return {"id": student.id, "name": student.name, "email": student.email}

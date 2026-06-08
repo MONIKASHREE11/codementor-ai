@@ -17,6 +17,14 @@ with st.sidebar:
             data = response.json()
             st.session_state["student_id"] = data["student_id"]
             st.success(f"Welcome, {name}! ID: {data['student_id']}")
+        elif response.status_code == 400:
+            login = requests.get(f"{API_URL}/student/students/email/{email}")
+            if login.status_code == 200:
+                data = login.json()
+                st.session_state["student_id"] = data["id"]
+                st.success(f"Welcome back, {name}! ID: {data['id']}")
+            else:
+                st.error("Login failed. Check your email.")
         else:
             st.error(response.json().get("detail", "Error occurred"))
 
