@@ -1,4 +1,4 @@
-# 🧠 CodeMentor AI — Personalized Programming Tutor Agent
+# 🧠 CodeMentor AI — Personalized Programming Tutor 
 
 A full-stack AI application that acts as a personalized coding tutor. It analyzes student code, remembers mistakes across sessions, and adapts its feedback based on each learner's history — built to demonstrate real-world skills in LLM integration, backend API design, and database-driven memory systems.
 
