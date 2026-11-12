@@ -28,7 +28,7 @@ Most AI tools give the same generic response to everyone. I wanted to build some
 | Frontend | Streamlit |
 | Backend | FastAPI |
 | Database | SQLAlchemy + SQLite |
-| LLM | LLaMA 3.3 70B (via Groq API) |
+| LLM | OpenAI GPT-OSS 120B (via Groq API) |
 | Language | Python 3.11 |
 | Version Control | Git + GitHub |
 
@@ -67,6 +67,7 @@ pip install fastapi uvicorn sqlalchemy streamlit python-dotenv pydantic groq
 4. Set up environment variables
 Create a .env file in the root folder:
 GROQ_API_KEY=your_groq_api_key_here
+GROQ_MODEL=openai/gpt-oss-120b
 
 5. Run the backend
 cd backend
@@ -87,8 +88,14 @@ http://localhost:8501
 2. A learner profile is created and stored in the database
 3. Student submits code with topic and language selected
 4. Backend fetches the student's history and builds a personalized prompt
-5. LLaMA 3.3 via Groq analyzes the code and returns tailored feedback
+5. GPT-OSS 120B via Groq analyzes the code and returns tailored feedback
 6. Session is saved and learner profile is updated for next time
+
+The analysis response includes structured feedback, detected errors, topic, and estimated skill level. The tutor uses the learner profile on later prompts; detected errors and misconceptions update the profile, while a topic is promoted to strong topics after two clean submissions. The Streamlit UI shows the current skill level, weak topics, and misconceptions.
+
+### Student profile API
+
+`GET /student/students/{student_id}/profile` returns the learner's skill level, weak and strong topics, misconceptions, and session count.
 
 ---
 
@@ -106,4 +113,3 @@ http://localhost:8501
 ## 👩‍💻 About
 
 Built by Monika Shree — MSc. Data Science Student at Christ University, Bangalore.
-
