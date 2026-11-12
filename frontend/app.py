@@ -54,6 +54,28 @@ else:
                 data = response.json()
                 st.markdown("### 📝 Feedback")
                 st.markdown(data["feedback"])
+                st.caption(
+                    f"Topic: {data.get('topic', topic)} · "
+                    f"Estimated level: {data.get('skill_estimate', 'unknown')}"
+                )
+                if data.get("errors_found"):
+                    st.markdown("**Mistakes identified**")
+                    for error in data["errors_found"]:
+                        st.write(f"- {error}")
                 st.caption(f"Session #{data['session']}")
             else:
                 st.error("Something went wrong. Is the backend running?")
+
+    with st.expander("Your learning profile"):
+        try:
+            profile_response = requests.get(
+                f"{API_URL}/student/students/{st.session_state['student_id']}/profile",
+                timeout=10,
+            )
+            profile_response.raise_for_status()
+            profile = profile_response.json()
+            st.write(f"**Skill level:** {profile['skill_level']}")
+            st.write(f"**Weak topics:** {', '.join(profile['weak_topics']) or 'None yet'}")
+            st.write(f"**Misconceptions:** {', '.join(profile['misconceptions']) or 'None yet'}")
+        except requests.RequestException as exc:
+            st.error(f"Could not load your learning profile: {exc}")
